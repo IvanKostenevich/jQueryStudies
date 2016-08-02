@@ -1,3 +1,6 @@
+//Task #1(Sorting Select)
+
+
 (function ($) {
 
     $.fn.sortByValue = function () {
@@ -88,6 +91,40 @@ $.fn.reverse = [].reverse;
 
         return this.empty().append($sortedByTypeNumber);
 
+};
+})(jQuery);
+
+
+//Task #8(Blocking Interface)
+
+
+(function ($) {
+$.fn.blockInterface = function () {
+    $('body').append('<div class="overlay"/>');
+    $('.overlay').css({
+        'position': 'fixed',
+        'top': '0',
+        'left': '0',
+        'height': '100%',
+        'width': '100%',
+        'background-color': 'rgba(0,0,0,0.5)',
+        'z-index': '2'
+
+    });
+    $('body').append('<div class="module">Interface Blocked!</div>');
+    $('.module').css({
+        'width': '300px',
+        'height': '200px',
+        'line-height': '200px',
+        'position': 'fixed',
+        'top': '50%',
+        'left': '50%',
+        'margin-top': '-100px',
+        'margin-left': '-150px',
+        'background-color': 'white',
+        'text-align': 'center',
+        'z-index': '3'
+    });
 };
 })(jQuery);
 
