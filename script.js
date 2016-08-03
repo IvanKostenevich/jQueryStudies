@@ -131,4 +131,21 @@ $.fn.reverse = [].reverse;
     };
 })(jQuery);
 
+//Task #3(Tab Control)
+
+
+$.fn.tabControl = function () {
+
+
+    this.find('ul').on('click','li', function () {
+        var selectedTabAnchor = $(this).children('a').attr('href');
+        var $tabSelected = $(selectedTabAnchor);
+        $('.content > div').hide();
+        $tabSelected.show();
+    });
+
+
+};
+
+
 

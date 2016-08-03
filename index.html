@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Demo</title>
-
+    <link rel="stylesheet" href="./styles.css">
 
 </head>
 <body>
@@ -18,7 +18,29 @@
 
 </select>
 
-<script src="jquery.js"></script>
+<div class="my-tabs">
+    <ul class='tabs'>
+        <li><a href='#tab1'>Tab 1</a></li>
+        <li><a href='#tab2'>Tab 2</a></li>
+        <li><a href='#tab3'>Tab 3</a></li>
+    </ul>
+    <div class="content">
+        <div id='tab1'>
+            <p>First Tab's Content</p>
+        </div>
+        <div id='tab2'>
+            <p>Second Tab's Content</p>
+        </div>
+        <div id='tab3'>
+            <p>Third Tab's Content</p>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.1.0.js" integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk="
+        crossorigin="anonymous"></script>
 <script src="script.js"></script>
+
 </body>
 </html>
