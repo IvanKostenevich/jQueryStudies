@@ -148,4 +148,49 @@ $.fn.tabControl = function () {
 };
 
 
+//Task #4(Notifications)
+
+
+$.fn.notificationPlugin = function () {
+
+    this.find('button').on('click', function () {
+        $(this).siblings('p').show('slow').delay(3000).hide('slow');
+    });
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

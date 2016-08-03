@@ -2,3 +2,16 @@
     display: none;
 
 }
+.notify {
+    display: none;
+    width: 250px;
+    height: 50px;
+    border: 5px solid black;
+    text-align: center;
+    line-height: 50px;
+    top:3%;
+    left:1%;
+    position: fixed;
+    background-color: orange;
+    z-index: 3;
+}
