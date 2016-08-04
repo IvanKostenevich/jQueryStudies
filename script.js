@@ -102,69 +102,73 @@ $.fn.reverse = [].reverse;
     $.fn.blockInterface = function () {
         setTimeout(function () {
             $('body').append('<div class="overlay"/>');
-            $('.overlay').css({
-                'position': 'fixed',
-                'top': '0',
-                'left': '0',
-                'height': '100%',
-                'width': '100%',
-                'background-color': 'rgba(0,0,0,0.5)',
-                'z-index': '2'
-
-            });
             $('body').append('<div class="blocking-inf">Interface Blocked!</div>');
-            $('.blocking-inf').css({
-                'width': '300px',
-                'height': '200px',
-                'line-height': '200px',
-                'position': 'fixed',
-                'top': '50%',
-                'left': '50%',
-                'margin-top': '-100px',
-                'margin-left': '-150px',
-                'background-color': 'white',
-                'text-align': 'center',
-                'z-index': '3'
-            });
-        },2000);
+
+        }, 2000);
 
     };
 })(jQuery);
 
+
 //Task #3(Tab Control)
 
-
-$.fn.tabControl = function () {
-
-
-    this.find('ul').on('click','li', function () {
-        var selectedTabAnchor = $(this).children('a').attr('href');
-        var $tabSelected = $(selectedTabAnchor);
-        $('.content > div').hide();
-        $tabSelected.show();
-    });
+(function ($) {
+    $.fn.tabControl = function () {
 
 
-};
+        this.find('ul').on('click', 'li', function () {
+            var selectedTabAnchor = $(this).children('a').attr('href');
+            var $tabSelected = $(selectedTabAnchor);
+            $tabSelected.siblings().hide();
+            $tabSelected.show();
+            $(this).siblings().css({'border-bottom': '1px solid black'});
+            $(this).css({'border-bottom': '1px solid white'});
+
+        });
+
+
+    };
+})(jQuery);
+
+
+$('.my-tabs').tabControl();
 
 
 //Task #4(Notifications)
 
+(function ($) {
+    $.fn.notificationPlugin = function () {
 
-$.fn.notificationPlugin = function () {
+        this.find('button').on('click', function () {
+            $(this).siblings('p').show('slow').delay(3000).hide('slow');
+        });
 
-    this.find('button').on('click', function () {
-        $(this).siblings('p').show('slow').delay(3000).hide('slow');
-    });
-
-};
-
-
-
-
+    };
+})(jQuery);
+$('.notification').notificationPlugin();
 
 
+//Task #5(Navigate table with arrow-keys)
 
+(function ($) {
+
+$.fn.navigateArrows = function () {
+    $('input').keydown(
+        function (e) {
+            if (e.keyCode == 39) {
+                $( document.activeElement ).parent().next().children().focus();
+            }
+            if (e.keyCode == 37) {
+                $( document.activeElement ).parent().prev().children().focus();
+            }
+        }
+    );
+
+}
+})(jQuery);
+
+
+$('table').navigateArrows();
 
 
 
