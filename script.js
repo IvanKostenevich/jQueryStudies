@@ -152,27 +152,44 @@ $('.notification').notificationPlugin();
 
 (function ($) {
 
-$.fn.navigateArrows = function () {
-    $('input').keydown(
-        function (e) {
-            if (e.keyCode == 39) {
-                $( document.activeElement ).parent().next().children().focus();
+    $.fn.navigateArrows = function () {
+        this.find($('input')).keydown(
+            function (e) {
+                if (e.keyCode == 39) {
+                    $(document.activeElement).parent().next().children().focus();
+                }
+                if (e.keyCode == 37) {
+                    $(document.activeElement).parent().prev().children().focus();
+                }
             }
-            if (e.keyCode == 37) {
-                $( document.activeElement ).parent().prev().children().focus();
-            }
-        }
-    );
+        );
 
-}
+    }
 })(jQuery);
 
 
 $('table').navigateArrows();
 
 
+//Task #7 (Dropdown for input type = text)
+
+$.fn.inputDropdown = function () {
+    var $input = this.find($('input'));
+    var $select = this.find($('select'));
+
+    $input.focus(function () {
+        $select.show()
+    });
+    this.find($('option')).on('click',function () {
+        var $text = $(this).text();
+        $input.val($text);
+        $select.hide();
+    })
+
+}
 
 
+$('.text-input').inputDropdown();
 
 
 
