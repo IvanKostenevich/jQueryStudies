@@ -173,6 +173,7 @@ $('table').navigateArrows();
 
 //Task #7 (Dropdown for input type = text)
 
+(function ($) {
 $.fn.inputDropdown = function () {
     var $input = this.find($('input'));
     var $select = this.find($('select'));
@@ -180,27 +181,142 @@ $.fn.inputDropdown = function () {
     $input.focus(function () {
         $select.show()
     });
-    this.find($('option')).on('click',function () {
+    this.find($('option')).on('click', function () {
         var $text = $(this).text();
         $input.val($text);
         $select.hide();
     })
 
 }
-
+})(jQuery);
 
 $('.text-input').inputDropdown();
 
 
+//Task #9(Table Sorting)
+(function ($) {
+$.fn.sortTable = function () {
 
 
+    this.find($('th').eq(0)).on('click', function () {
+        this.asc = !this.asc;
+        var asc = this.asc
+        var $table = $(this).parents('table');
+        var $rows = $table.find('tr:gt(0)').sort(compareByText($(this).index()));
 
 
+        function compareByText(index) {
+            return function (a, b) {
+                var valA = getCellValue(a, index);
+                var valB = getCellValue(b, index);
+                if (asc) {
+                    return valA.localeCompare(valB)
+                } else {
+                    return -valA.localeCompare(valB)
+                }
+            }
+        }
+
+        function getCellValue(row, index) {
+            return $(row).children('td').eq(index).html();
+        }
+
+        for (var i = 0; i < $rows.length; i++) {
+            $table.append($rows[i]);
+        }
+    });
+
+    this.find($('th').eq(1)).on('click', function () {
+        this.asc = !this.asc;
+        var asc = this.asc
+        var $table = $(this).parents('table');
+        var $rows = $table.find('tr:gt(0)').sort(compareByValue($(this).index()));
 
 
+        function compareByValue(index) {
+            return function (a, b) {
+                var valA = getCellValue(a, index);
+                var valB = getCellValue(b, index);
+                if (asc) {
+                    return valA - valB
+                } else {
+                    return valB - valA
+                }
+            }
+        }
+
+        function getCellValue(row, index) {
+            return $(row).children('td').eq(index).html();
+        }
+
+        for (var i = 0; i < $rows.length; i++) {
+            $table.append($rows[i]);
+        }
+    });
+/////////////////////
+
+    this.find($('th').eq(2)).on('click', function () {
+        this.asc = !this.asc;
+        var asc = this.asc
+        var $table = $(this).parents('table');
+        var $rows = $table.find('tr:gt(0)').sort(compareByBoolean($(this).index()));
 
 
+        function compareByBoolean(index) {
+            return function (a, b) {
+                var valA = getCellValue(a, index);
+                var valB = getCellValue(b, index);
+                if (asc) {
+                    return valA < valB
+                } else {
+                    return valA > valB
+                }
+            }
+        }
 
+        function getCellValue(row, index) {
+            return $(row).children('td').eq(index).html();
+        }
+
+        for (var i = 0; i < $rows.length; i++) {
+            $table.append($rows[i]);
+        }
+    });
+///////////
+
+    this.find($('th').eq(3)).on('click', function () {
+        this.asc = !this.asc;
+        var asc = this.asc
+        var $table = $(this).parents('table');
+        var $rows = $table.find('tr:gt(0)').sort(compareByDate($(this).index()));
+
+
+        function compareByDate(index) {
+            return function (a, b) {
+                var valA = getCellDate(a, index);
+                var valB = getCellDate(b, index);
+                if (asc) {
+                    return valA < valB
+                } else {
+                    return valA > valB
+                }
+            }
+        }
+
+        function getCellDate(row, index) {
+            var date = Date.parse($(row).children('td').eq(index).html());
+            return date
+        }
+
+        for (var i = 0; i < $rows.length; i++) {
+            $table.append($rows[i]);
+        }
+    });
+
+}
+})(jQuery);
+
+$('.table-sort').sortTable();
 
 
 
