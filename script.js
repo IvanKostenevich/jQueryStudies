@@ -1,3 +1,6 @@
+//Task #1(Sorting Select)
+
+
 (function ($) {
 
     $.fn.sortByValue = function () {
@@ -88,7 +91,243 @@ $.fn.reverse = [].reverse;
 
         return this.empty().append($sortedByTypeNumber);
 
-};
+    };
 })(jQuery);
+
+
+//Task #8(Blocking Interface)
+
+
+(function ($) {
+    $.fn.blockInterface = function () {
+        setTimeout(function () {
+            $('body').append('<div class="overlay"/>');
+            $('body').append('<div class="blocking-inf">Interface Blocked!</div>');
+
+        }, 2000);
+
+    };
+})(jQuery);
+
+
+//Task #3(Tab Control)
+
+(function ($) {
+    $.fn.tabControl = function () {
+
+
+        this.find('ul').on('click', 'li', function () {
+            var selectedTabAnchor = $(this).children('a').attr('href');
+            var $tabSelected = $(selectedTabAnchor);
+            $tabSelected.siblings().hide();
+            $tabSelected.show();
+            $(this).siblings().css({'border-bottom': '1px solid black'});
+            $(this).css({'border-bottom': '1px solid white'});
+
+        });
+
+
+    };
+})(jQuery);
+
+
+$('.my-tabs').tabControl();
+
+
+//Task #4(Notifications)
+
+(function ($) {
+    $.fn.notificationPlugin = function () {
+
+        this.find('button').on('click', function () {
+            $(this).siblings('p').show('slow').delay(3000).hide('slow');
+        });
+
+    };
+})(jQuery);
+$('.notification').notificationPlugin();
+
+
+//Task #5(Navigate table with arrow-keys)
+
+(function ($) {
+
+    $.fn.navigateArrows = function () {
+        this.find($('input')).keydown(
+            function (e) {
+                if (e.keyCode == 39) {
+                    $(document.activeElement).parent().next().children().focus();
+                }
+                if (e.keyCode == 37) {
+                    $(document.activeElement).parent().prev().children().focus();
+                }
+            }
+        );
+
+    }
+})(jQuery);
+
+
+$('table').navigateArrows();
+
+
+//Task #7 (Dropdown for input type = text)
+
+(function ($) {
+$.fn.inputDropdown = function () {
+    var $input = this.find($('input'));
+    var $select = this.find($('select'));
+
+    $input.focus(function () {
+        $select.show()
+    });
+    this.find($('option')).on('click', function () {
+        var $text = $(this).text();
+        $input.val($text);
+        $select.hide();
+    })
+
+}
+})(jQuery);
+
+$('.text-input').inputDropdown();
+
+
+//Task #9(Table Sorting)
+(function ($) {
+$.fn.sortTable = function () {
+
+
+    this.find($('th').eq(0)).on('click', function () {
+        this.asc = !this.asc;
+        var asc = this.asc
+        var $table = $(this).parents('table');
+        var $rows = $table.find('tr:gt(0)').sort(compareByText($(this).index()));
+
+
+        function compareByText(index) {
+            return function (a, b) {
+                var valA = getCellValue(a, index);
+                var valB = getCellValue(b, index);
+                if (asc) {
+                    return valA.localeCompare(valB)
+                } else {
+                    return -valA.localeCompare(valB)
+                }
+            }
+        }
+
+        function getCellValue(row, index) {
+            return $(row).children('td').eq(index).html();
+        }
+
+        for (var i = 0; i < $rows.length; i++) {
+            $table.append($rows[i]);
+        }
+    });
+
+    this.find($('th').eq(1)).on('click', function () {
+        this.asc = !this.asc;
+        var asc = this.asc
+        var $table = $(this).parents('table');
+        var $rows = $table.find('tr:gt(0)').sort(compareByValue($(this).index()));
+
+
+        function compareByValue(index) {
+            return function (a, b) {
+                var valA = getCellValue(a, index);
+                var valB = getCellValue(b, index);
+                if (asc) {
+                    return valA - valB
+                } else {
+                    return valB - valA
+                }
+            }
+        }
+
+        function getCellValue(row, index) {
+            return $(row).children('td').eq(index).html();
+        }
+
+        for (var i = 0; i < $rows.length; i++) {
+            $table.append($rows[i]);
+        }
+    });
+/////////////////////
+
+    this.find($('th').eq(2)).on('click', function () {
+        this.asc = !this.asc;
+        var asc = this.asc
+        var $table = $(this).parents('table');
+        var $rows = $table.find('tr:gt(0)').sort(compareByBoolean($(this).index()));
+
+
+        function compareByBoolean(index) {
+            return function (a, b) {
+                var valA = getCellValue(a, index);
+                var valB = getCellValue(b, index);
+                if (asc) {
+                    return valA < valB
+                } else {
+                    return valA > valB
+                }
+            }
+        }
+
+        function getCellValue(row, index) {
+            return $(row).children('td').eq(index).html();
+        }
+
+        for (var i = 0; i < $rows.length; i++) {
+            $table.append($rows[i]);
+        }
+    });
+///////////
+
+    this.find($('th').eq(3)).on('click', function () {
+        this.asc = !this.asc;
+        var asc = this.asc
+        var $table = $(this).parents('table');
+        var $rows = $table.find('tr:gt(0)').sort(compareByDate($(this).index()));
+
+
+        function compareByDate(index) {
+            return function (a, b) {
+                var valA = getCellDate(a, index);
+                var valB = getCellDate(b, index);
+                if (asc) {
+                    return valA < valB
+                } else {
+                    return valA > valB
+                }
+            }
+        }
+
+        function getCellDate(row, index) {
+            var date = Date.parse($(row).children('td').eq(index).html());
+            return date
+        }
+
+        for (var i = 0; i < $rows.length; i++) {
+            $table.append($rows[i]);
+        }
+    });
+
+}
+})(jQuery);
+
+$('.table-sort').sortTable();
+
+
+
+
+
+
+
+
+
+
+
+
 
 
